@@ -19,4 +19,12 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.TryGetComponent(out IDamageable damageable))
+        {
+            damageable.TakeDamage(1);
+        }
+    }
 }
