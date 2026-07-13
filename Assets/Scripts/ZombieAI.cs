@@ -13,9 +13,10 @@ public class ZombieAI : MonoBehaviour, IDamageable
         currentHealth = maxHealth;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
+        Vector2 moveDirection = (player.transform.position - transform.position).normalized;
+        zombieRb.linearVelocity = moveDirection * moveSpeed;
     }
 
     public void TakeDamage(int damageAmount)
