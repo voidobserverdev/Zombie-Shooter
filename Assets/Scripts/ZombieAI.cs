@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ZombieAI : MonoBehaviour, IDamageable
 {
-    [SerializeField] private Transform player;
+    private Transform player;
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float maxHealth = 10f;
     [SerializeField] private float currentHealth;
@@ -11,6 +11,7 @@ public class ZombieAI : MonoBehaviour, IDamageable
     void Start()
     {
         currentHealth = maxHealth;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void FixedUpdate()
