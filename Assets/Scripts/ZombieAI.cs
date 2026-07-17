@@ -4,7 +4,7 @@ public class ZombieAI : MonoBehaviour, IDamageable
 {
     private Transform player;
     [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float maxHealth = 10f;
+    [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float currentHealth;
     [SerializeField] private Rigidbody2D zombieRb;
 
@@ -16,8 +16,15 @@ public class ZombieAI : MonoBehaviour, IDamageable
 
     void FixedUpdate()
     {
-        Vector2 moveDirection = (player.transform.position - transform.position).normalized;
-        zombieRb.linearVelocity = moveDirection * moveSpeed;
+        if (player != null)
+        {
+            Vector2 moveDirection = (player.transform.position - transform.position).normalized;
+            zombieRb.linearVelocity = moveDirection * moveSpeed;
+        }
+        else
+        {
+            zombieRb.linearVelocity = Vector2.zero;
+        }
     }
 
     public void TakeDamage(int damageAmount)
@@ -31,6 +38,17 @@ public class ZombieAI : MonoBehaviour, IDamageable
         {
             Debug.Log("Zombie killed!");
             Destroy(gameObject);
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (collision.gameObject.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.TakeDamage(25);
+            }
         }
     }
 }
