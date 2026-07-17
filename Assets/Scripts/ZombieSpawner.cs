@@ -13,7 +13,10 @@ public class ZombieSpawner : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= spawnRate)
         {
-            SpawnZombie();
+            if (player != null)
+            {
+                SpawnZombie();
+            }
             timer = 0f;
         }
     }

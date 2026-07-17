@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieAI
   moveSpeed: 2
-  maxHealth: 10
+  maxHealth: 100
   currentHealth: 0
   zombieRb: {fileID: 41207200311220882}
 --- !u!50 &41207200311220882
