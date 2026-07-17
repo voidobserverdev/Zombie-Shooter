@@ -27,6 +27,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (!isInvincible)
         {
             currentHealth -= damageAmount;
+            Debug.Log("Player Health: " + currentHealth);
             isInvincible = true;
             invincibilityTimer = 0f;
         }

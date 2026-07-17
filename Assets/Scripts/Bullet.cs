@@ -18,10 +18,13 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IDamageable damageable))
+        if (collision.gameObject.CompareTag("Zombie"))
         {
-            damageable.TakeDamage(damage);
-            Destroy(gameObject);
+            if (collision.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.TakeDamage(damage);
+                Destroy(gameObject);
+            }
         }
     }
 }
