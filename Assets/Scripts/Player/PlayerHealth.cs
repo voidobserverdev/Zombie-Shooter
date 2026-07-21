@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float invincibilityDuration = 1f;
+    [SerializeField] private GameUIManager gameUIManager;
     private float invincibilityTimer = 0f;
     private bool isInvincible = false;
     private float currentHealth;
@@ -11,6 +13,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     void Start()
     {
         currentHealth = maxHealth;
+        gameUIManager.UpdateHealth(currentHealth, maxHealth);
     }
 
     void Update()
@@ -27,6 +30,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (!isInvincible)
         {
             currentHealth -= damageAmount;
+            gameUIManager.UpdateHealth(currentHealth, maxHealth);
             Debug.Log("Player Health: " + currentHealth);
             isInvincible = true;
             invincibilityTimer = 0f;
@@ -35,7 +39,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             Debug.Log("Game Over!");
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            SceneManager.LoadScene(2);
         }
     }
 }
